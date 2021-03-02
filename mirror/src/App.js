@@ -1,13 +1,13 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
 import Base from './Pages/Base';
+import FirebaseTest from './Pages/FirebaseTest';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <Base/>
+    <div>
+      <FirebaseTest/>
     </div>
   );
-}
+};
 
 export default App;
