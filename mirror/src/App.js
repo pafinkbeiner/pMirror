@@ -5,7 +5,12 @@ import FirebaseTest from './Pages/FirebaseTest';
 const App = () => {
   return (
     <div>
-      <FirebaseTest/>
+      <FirebaseTest>
+        <Base color="black"/>
+        <Base color="red"/>
+        <Base color="green"/>
+        <Base color="blue"/>
+      </FirebaseTest>
     </div>
   );
 };

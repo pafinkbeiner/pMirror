@@ -1,43 +1,33 @@
 import React, { useEffect, useState } from "react"
 import { db } from "../Helper/firebase"
 
-const FirebaseTest = () => {
+const FirebaseTest = (props) => {
 
-    const [currentUser, setCurrentUser] = useState("")
+    const [currentPage, setCurrentPage] = useState("")
 
     useEffect(() => {
+        let ref = db.collection('meta');
 
-        // get specific doc
-        db.collection("meta")
-            .doc("Vd56TWv5G9hVo0QuVgEp")
-            .get()
-            .then(doc => {
-                const data = doc.data();
-                console.log(data); 
-                setCurrentUser(data.currentUser)
-            });
+        let unsubscribe = ref.onSnapshot(onCollectionUpdate);
 
-        // get collection that meets condition
-        db.collection("meta")
-            .where("currentUser", "==", "paul")
-            .get()
-            .then(querySnapshot => {
-                const data = querySnapshot.docs.map(doc => doc.data());
-                console.log(data);
-            });
+        console.log(props.children);
 
-        // get everything
-        db.collection("meta")
-            .get()
-            .then(querySnapshot => {
-                const data = querySnapshot.docs.map(doc => doc.data());
-                console.log(data);
-            });
-
+        return () => {
+            unsubscribe();
+        }
     })
 
+    const onCollectionUpdate = (querySnapshot) => {
+        let meta;
 
-    return (<>{currentUser}</>)
+        querySnapshot.forEach((doc) => {
+          meta = doc.data();
+        });
+    
+        setCurrentPage(meta.currentPage);
+    }
+
+    return (<>{props.children[currentPage]}</>)
 };
 
 export default FirebaseTest;
