@@ -10,6 +10,7 @@ const firebaseConfig = {
 };
 // Configure
 let fb = firebase.initializeApp(firebaseConfig);
+let db = fb.firestore();
 
 // AUTH //
 fb.auth();
@@ -28,7 +29,7 @@ fb.auth().onAuthStateChanged((user) => {
 
 
 let messaging = fb.messaging();
-let db = fb.firestore();
+
 
 const onMessageListener = () =>
     new Promise((resolve) => {

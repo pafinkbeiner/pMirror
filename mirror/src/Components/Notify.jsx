@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import { fb, onMessageListener, getToken } from '../Helper/firebase';
 import {Button, Row, Col, Toast} from 'react-bootstrap';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import '../bootstrap.scss';
 
 function Notify() {
 
