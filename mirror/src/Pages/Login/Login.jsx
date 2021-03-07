@@ -1,8 +1,11 @@
 import React, {useState} from 'react'
 import {fb} from "../../Helper/firebase"
+import { useStoreActions } from "easy-peasy"
 
 const Login = () => {
     
+    const setUser = useStoreActions((actions) => actions.setUser);
+
     // Credentials
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -17,6 +20,7 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           var user = userCredential.user;
+          setUser(user);
           window.location.replace("/")
         })
         .catch((error) => {
