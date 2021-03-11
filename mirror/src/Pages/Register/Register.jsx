@@ -1,7 +1,11 @@
 import React, {useState} from 'react'
-import {fb} from "../../Helper/firebase"
+import {fb, db} from "../../Helper/firebase"
+import { useStoreActions } from "easy-peasy"
+import {Redirect} from "react-router-dom"
 
 const Register = () => {
+
+    const setUser = useStoreActions((actions) => actions.setUser);
 
     // Credentials
     const [username, setUsername] = useState("");
@@ -11,6 +15,7 @@ const Register = () => {
     // Meta
     const [loading, setLoading] = useState();
     const [label, setLabel] = useState("")
+    const [redirect, setRedirect] = useState(undefined)
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -18,7 +23,25 @@ const Register = () => {
         .then((userCredential) => {
             // Signed in 
             var user = userCredential.user;
-            window.location.replace("/")
+            setUser(user);
+
+            //Setup firestore data
+            const data = {
+                grid: [],
+                username: username,
+                role: 1
+              };
+              
+            db.collection('users').doc(`${user.uid}`).set(data)
+            .then(() => {
+                setRedirect(true)
+            })
+            .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.log(error);
+            });
+
         })
         .catch((error) => {
             var errorCode = error.code;
@@ -28,20 +51,27 @@ const Register = () => {
     }
     
     return (
-        <div>
-            <form  onSubmit={onSubmit}>
-                <input onChange={(e) => setUsername(e.target.value)} value={username} type="username" name="username" id="username"/>
-                <label htmlFor="username">Username</label>
-                <br/>
-                <input onChange={(e) => setEmail(e.target.value)} value={email} type="email" name="email" id="email"/>
-                <label htmlFor="email">Email</label>
-                <br/>
-                <input onChange={(e) => setPassword(e.target.value)} value={password} type="password" name="password" id="password"/>
-                <label htmlFor="password">Password</label>
-                <br/>
-                <input type="submit"/>
-            </form>
-        </div>
+        <>
+            {
+                redirect ? 
+                    <Redirect to="/"/>
+                : 
+            <div>
+                <form  onSubmit={onSubmit}>
+                    <input onChange={(e) => setUsername(e.target.value)} value={username} type="username" name="username" id="username"/>
+                    <label htmlFor="username">Username</label>
+                    <br/>
+                    <input onChange={(e) => setEmail(e.target.value)} value={email} type="email" name="email" id="email"/>
+                    <label htmlFor="email">Email</label>
+                    <br/>
+                    <input onChange={(e) => setPassword(e.target.value)} value={password} type="password" name="password" id="password"/>
+                    <label htmlFor="password">Password</label>
+                    <br/>
+                    <input type="submit"/>
+                </form>
+            </div>
+            }
+        </>
     )
 }
 

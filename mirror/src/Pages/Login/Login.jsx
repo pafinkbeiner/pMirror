@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
-import {fb} from "../../Helper/firebase"
+import {fb, db} from "../../Helper/firebase"
 import { useStoreActions } from "easy-peasy"
+import {Redirect} from "react-router-dom"
 
 const Login = () => {
     
@@ -13,6 +14,7 @@ const Login = () => {
     // Meta
     const [loading, setLoading] = useState();
     const [label, setLabel] = useState("")
+    const [redirect, setRedirect] = useState(undefined)
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -21,7 +23,20 @@ const Login = () => {
           // Signed in
           var user = userCredential.user;
           setUser(user);
-          window.location.replace("/")
+
+          //Setup firestore data
+          const data = {};
+            
+          db.collection('users').doc(`${user.uid}`).set(data, {merge: true})
+          .then(() => {
+              setRedirect(true)
+          })
+          .catch((error) => {
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              console.log(error);
+          });
+
         })
         .catch((error) => {
           var errorCode = error.code;
@@ -30,7 +45,11 @@ const Login = () => {
     }
     
     return (
-        <div>
+        <>
+        {
+            redirect ? 
+                <Redirect to="/"/>
+            :         <div>
             <form  onSubmit={onSubmit}>
                 <input onChange={(e) => setEmail(e.target.value)} value={email} type="email" name="email" id="email"/>
                 <label htmlFor="email">Email</label>
@@ -41,6 +60,8 @@ const Login = () => {
                 <input type="submit"/>
             </form>
         </div>
+        }
+        </>
     )
 }
 
