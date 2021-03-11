@@ -12,6 +12,7 @@ import Register from './Pages/Register/Register';
 import { fb } from './Helper/firebase';
 import { useStoreState } from 'easy-peasy';
 import Grid from './Pages/Grid/Grid';
+import View1 from './Components/View1/View1';
 
 const App = () => {
 
@@ -25,6 +26,7 @@ const App = () => {
         }>Log Out</button>
         <br/><br/>
         <Switch>
+          <Route path="/View1" component={View1} />
           <Route path="/Login">
             <Login/>
           </Route>

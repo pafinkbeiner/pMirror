@@ -29,7 +29,8 @@ const Register = () => {
             const data = {
                 grid: [],
                 username: username,
-                role: 1
+                role: 1,
+                orientation: "vertical"
               };
               
             db.collection('users').doc(`${user.uid}`).set(data)
