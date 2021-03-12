@@ -1,16 +1,16 @@
 import React from 'react'
 import Time, { useDate } from "../../Helper/Time"
 
-const View1 = ({color}) => {
+const View1 = () => {
 
     const { date, time, wish } = useDate();
 
     return (
-        <div className="container" style={{ backgroundColor: color }}>
-            <div className="content">
-               <h1>{date}</h1>
-               <h2>{time}</h2>
-               <h3>{wish}</h3>
+        <div className="columns">
+            <div className="column is-half is-offset-one-quarter">
+               <h1 style={{color: "white", fontSize:"2em"}}>{date}</h1>
+               <h2 style={{color: "white", fontSize:"2em"}}>{time}</h2>
+               <h3 style={{color: "white", fontSize:"2em"}}>{wish}</h3>
             </div>
         </div>
     )

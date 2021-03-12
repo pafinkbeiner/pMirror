@@ -1,6 +1,4 @@
 import './App.scss';
-import Base from './Pages/Base';
-import FirebaseTest from './Pages/FirebaseTest';
 import {
   BrowserRouter as Router,
   Switch,
