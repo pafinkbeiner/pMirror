@@ -21,9 +21,11 @@ const App = () => {
   return (
 
       <Router>
-        <button onClick={() => 
-            fb.auth().signOut().then(() => {window.location.replace("/login")})
-        }>Log Out</button>
+        {user && 
+            <button className="button" style={{position: "absolute", right: "10px", top: "10px"}} onClick={() => 
+              fb.auth().signOut().then(() => {window.location.replace("/login")})
+          }>Log Out</button>
+        }
         <br/><br/>
         <Switch>
           <Route path="/View1" component={View1} />

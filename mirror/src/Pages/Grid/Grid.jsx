@@ -41,7 +41,7 @@ const Grid = (props) => {
 
     return (<div className="columns is-multiline">
 {
-    ( grid && grid.length > 0) && 
+    ( grid && grid.length > 0) ? 
 
     grid.map((item, index) => {
         console.log("item: ",item);
@@ -67,6 +67,10 @@ const Grid = (props) => {
         }
 
     })
+    :
+    <div className="column is-half is-offset-one-quarter">
+        <h1 style={{fontSize: "3em"}}>Please add windows with the control app</h1>
+    </div>
 
 }
 

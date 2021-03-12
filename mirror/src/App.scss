@@ -1,3 +1,8 @@
-.html{
+.html, body{
     background-color: black;
+    height: 100vh;
+}
+
+p, h1, label{
+    color: white;
 }
