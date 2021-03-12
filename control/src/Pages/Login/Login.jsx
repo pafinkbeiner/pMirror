@@ -52,6 +52,10 @@ const Login = () => {
       ) : (
         <div class="container">
 
+        <div className="column">
+          <p style={{fontSize: "2em"}}>Login</p>
+        </div>
+
           <div className="column">
 
             <form onSubmit={onSubmit}>
