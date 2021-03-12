@@ -37,7 +37,7 @@ const Control = () => {
                 <div className="column ml-1 mr-1 mt-2">
                     <article className="panel is-black">
                     <p className="panel-heading">
-                        Primary
+                        Grid
                     </p>
 
                     <button className="button" style={{position: "absolute", top: "20px", right: "11px"}}>+</button>
