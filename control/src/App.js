@@ -1,23 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+import Login from "./Pages/Login/Login";
+import Register from "./Pages/Register/Register";
+import { fb } from "./Helper/firebase";
+import { useStoreState } from "easy-peasy";
 
 function App() {
+  const user = useStoreState((state) => state.user);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        {user && (
+          <button
+            className="button"
+            style={{ position: "absolute", right: "10px", top: "10px" }}
+            onClick={() =>
+              fb
+                .auth()
+                .signOut()
+                .then(() => {
+                  window.location.replace("/login");
+                })
+            }
+          >
+            Log Out
+          </button>
+        )}
+        <br />
+        <br />
+        <Switch>
+          <Route path="/Login"><Login/></Route>
+          <Route path="/Register"><Register/></Route>
+          <Route path="/">
+          {user ? 
+              <></>: 
+              <Redirect to="/Login"/>
+            }
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }
