@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { fb, db } from "../../Helper/firebase";
 import { useStoreActions } from "easy-peasy";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 const Login = () => {
   const setUser = useStoreActions((actions) => actions.setUser);
@@ -54,6 +54,7 @@ const Login = () => {
 
         <div className="column">
           <p style={{fontSize: "2em"}}>Login</p>
+          or go to the <Link to="/Register">Register</Link> page.
         </div>
 
           <div className="column">

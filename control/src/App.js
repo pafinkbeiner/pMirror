@@ -8,6 +8,7 @@ import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import { fb } from "./Helper/firebase";
 import { useStoreState } from "easy-peasy";
+import Control from "./Pages/Control/Control";
 
 function App() {
   const user = useStoreState((state) => state.user);
@@ -38,7 +39,7 @@ function App() {
           <Route path="/Register"><Register/></Route>
           <Route path="/">
           {user ? 
-              <></>: 
+              <Control/>: 
               <Redirect to="/Login"/>
             }
           </Route>
