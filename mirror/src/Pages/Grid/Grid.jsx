@@ -41,7 +41,7 @@ const Grid = (props) => {
 
     return (<div className="columns is-multiline">
 {
-    grid.length > 0 && 
+    ( grid && grid.length > 0) && 
 
     grid.map((item, index) => {
         console.log("item: ",item);
