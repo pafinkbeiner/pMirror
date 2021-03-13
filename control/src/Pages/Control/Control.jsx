@@ -56,14 +56,14 @@ const Control = () => {
                     <p className="panel-tabs">
                         <a className="is-active">All</a>
                     </p>
-                    <div className="panel-block">
+                    {/* <div className="panel-block">
                         <p className="control has-icons-left">
                         <input className="input is-black" type="text" placeholder="Search"/>
                         <span className="icon is-left">
                             <i className="fas fa-search" aria-hidden="true"></i>
                         </span>
                         </p>
-                    </div>
+                    </div> */}
 
                     {
 
@@ -115,6 +115,7 @@ const Control = () => {
                                     
                                     if(doc.data().grid !== undefined){
                                         db.collection("users").doc(user.uid).set({
+                                            ...doc.data(),
                                             grid: [...doc.data().grid, newGrid]
                                         }).then(() => {
 
@@ -170,6 +171,7 @@ const Control = () => {
                                         
                             
                                         db.collection("users").doc(user.uid).set({
+                                            ...doc.data(),
                                             grid: [...temp1, selectedGridItem]
                                         }).then(() => {
 
