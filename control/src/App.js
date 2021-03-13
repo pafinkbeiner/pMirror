@@ -9,6 +9,7 @@ import Register from "./Pages/Register/Register";
 import { fb } from "./Helper/firebase";
 import { useStoreState } from "easy-peasy";
 import Control from "./Pages/Control/Control";
+import "./App.css";
 
 function App() {
   const user = useStoreState((state) => state.user);
@@ -16,6 +17,11 @@ function App() {
   return (
     <div className="App">
       <Router>
+
+        <div style={{position: "absolute", left: "0px", top: "-10px"}}>
+          <div className="column is-half"><h1 style={{fontSize: "2em"}}>Control</h1></div>
+        </div>
+
         {user && (
           <button
             className="button"
@@ -44,6 +50,9 @@ function App() {
             }
           </Route>
         </Switch>
+
+        <div style={{position: "absolute", bottom: "10px", left: "35%"}}><b>{user.email}</b></div>
+
       </Router>
     </div>
   );

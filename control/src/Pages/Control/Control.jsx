@@ -45,6 +45,7 @@ const Control = () => {
         <div className="container">
 
             <div className="columns">
+
                 <div className="column ml-1 mr-1 mt-2">
                     <article className="panel is-black">
                     <p className="panel-heading">
@@ -185,6 +186,32 @@ const Control = () => {
 
 
                             }} className="button is-success">Save changes</button>
+                            <button onClick={() => {
+
+                                db.collection("users").doc(user.uid).get().then(doc => {
+                                                                    
+                                    if(doc.data().grid !== undefined){
+
+                                        // get array 
+                                        let temp1 = doc.data().grid;
+                                        // slice old element
+                                        temp1.splice(doc.data().grid.findIndex(item => item === selectedGridItemPre), 1);
+                                        
+
+                                        db.collection("users").doc(user.uid).set({
+                                            ...doc.data(),
+                                            grid: [...temp1]
+                                        }).then(() => {
+
+                                            // close modal
+                                            setSelectedGridItemModal(false); 
+                                            setSelectedGridItem("")
+                                        })
+                                    }
+
+                                })
+
+                            }} className="button is-danger">Remove</button>
                             <button onClick={() => {setSelectedGridItemModal(false); setSelectedGridItem("")}} className="button">Cancel</button>
                             </footer>
                         </div>
